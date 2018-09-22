@@ -22,7 +22,7 @@ public class PageController {
 		return "challenge";
 	}
 	
-	@RequestMapping(value = {"/challenge", "/challenge/{name}"})
+	@RequestMapping(value = {"/challenge", "challenge/{name}"})
 	public String challengePath(@PathVariable Optional<String> name, Model model) {
 		if (name.isPresent()) {
 			model.addAttribute("name", name.get());
@@ -31,4 +31,33 @@ public class PageController {
 		}
 		return "challenge";
 	}
+	
+	@RequestMapping("/generator")
+	public String viralGenerator(@RequestParam(value = "a", required = false, defaultValue = "0") Integer a,
+			@RequestParam(value = "b", required = false, defaultValue = "0") Integer b, Model model) {
+		
+		String hm = "h";
+		String hasil = "";
+		model.addAttribute("a", a);
+		model.addAttribute("b", b);
+		
+		if (a==0) {
+			hm = "hm";
+		}
+		
+		for (int i=0; i<a; i++) {
+			hm += "m";
+		}
+		
+		if (b==0) {
+			hasil = hm;
+		}
+		
+		for (int i=0; i<b; i++) {
+			hasil += hm + " ";
+		}
+		model.addAttribute("hasil", hasil);
+		return "generator";
+	}
+	
 }
